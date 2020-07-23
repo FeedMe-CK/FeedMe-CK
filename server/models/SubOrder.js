@@ -7,7 +7,7 @@ const subOrderSchema = new Schema({
     unique: true
   },
   subTotal: Number,
-  state: {
+  status: {
     type: String,
     enum: ['placed', 'inPreparation', 'outForDelivery'],
     default: 'placed'
