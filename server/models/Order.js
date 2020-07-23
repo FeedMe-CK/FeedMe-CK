@@ -12,7 +12,7 @@ const orderSchema = new Schema({
     ref: 'Customer'
   },
   totPrice: Number,
-  state: {
+  status: {
     type: String,
     enum: ['placed', 'inPreparation', 'outForDelivery'],
     default: 'placed'

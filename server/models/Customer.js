@@ -7,6 +7,7 @@ const customerSchema = new Schema({
   email: {type: String,
     unique: true
   },
+  googleId: String,
   password: String,
   address: String,
   placeId: String,
