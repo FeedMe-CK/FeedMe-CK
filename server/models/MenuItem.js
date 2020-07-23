@@ -2,7 +2,9 @@ const mongoose = require('mongoose');
 const { Schema, model } = mongoose;
 
 const menuItemSchema = new Schema({
-  itemNo: String,
+  itemNo: {type: String,
+    unique: true
+  },
   name: String,
   description: String,
   price: Number,

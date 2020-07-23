@@ -3,7 +3,7 @@ const { Schema, model } = mongoose;
 
 const orderSchema = new Schema({
   orderId: {
-    type: String,
+    type: Number,
     unique: true
   },
   customer: 
@@ -19,11 +19,7 @@ const orderSchema = new Schema({
   },
   scheduledDelivery: Date,
   items: Object,
-  subOrders: 
-  {
-    type: String,
-    ref: 'subOrderId'
-  },
+  subOrders: Array
 },
 {
   timestamps: { createdAt: "createdAt", updatedAt: "updatedAt" }

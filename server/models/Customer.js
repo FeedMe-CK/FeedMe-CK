@@ -4,7 +4,9 @@ const { Schema, model } = mongoose;
 const customerSchema = new Schema({
   firstName: String,
   lastName: String,
-  email: String,
+  email: {type: String,
+    unique: true
+  },
   password: String,
   address: String,
   placeId: String,
