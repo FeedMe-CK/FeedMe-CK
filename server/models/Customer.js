@@ -8,6 +8,7 @@ const customerSchema = new Schema({
   password: String,
   address: String,
   placeId: String,
+  googleId: String,
   orders: [
     {
       type: Schema.Types.ObjectId,

@@ -2,7 +2,7 @@ const User = require('../models/Customer');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcrypt'); // !!!
 const passport = require('passport');
-const GoogleStrategy = require('passport-google').Strategy;
+var GoogleStrategy = require( 'passport-google-oauth2' ).Strategy;
 
 passport.serializeUser((loggedInUser, cb) => {
   cb(null, loggedInUser._id);
@@ -19,10 +19,13 @@ passport.deserializeUser((userIdFromSession, cb) => {
 });
 
 passport.use(new GoogleStrategy({
-    returnURL: 'http://localhost:5555/auth/google/return',
-    realm: 'http://localhost:5555/'
+    clientID:     process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://localhost:5555/api/auth/google/callback",
+    passReqToCallback   : true
   },
-  function(identifier, profile, done) {
+  function(request, accessToken, refreshToken, profile, done) {
+      console.log(profile)
     // asynchronous verification, for effect...
     process.nextTick(function () {
         User.findOne({ googleId: profile.id })
@@ -30,16 +33,14 @@ passport.use(new GoogleStrategy({
           if (found !== null) {
             // user with that githubId already exists
             done(null, found);
-            res.json(found);
           } else {
             // no user with that githubId
             return User.create({
               googleId: profile.id,
-              firstName: profile.name,
+              firstName: profile.given_name,
               email: profile.email,
             }).then((dbUser) => {
               done(null, dbUser);
-              res.json(dbUser);
             });
           }
         })

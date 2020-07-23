@@ -76,19 +76,17 @@ router.post('/login', (req, res) => {
   })(req, res);
 });
 
-router.get('/auth/google',
-  passport.authenticate('google'),
-  function(req, res){
-    // The request will be redirected to Google for authentication, so
-    // this function will not be called.
-  });
+router.get('/api/auth/google',
+  passport.authenticate('google', { scope: 
+      [ 'https://www.googleapis.com/auth/plus.login',
+      , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
+));
 
-router.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.json(req.user)
-  });
+router.get( '/api/auth/google/callback', 
+    passport.authenticate( 'google', { 
+        successRedirect: 'http://localhost:3000',
+        failureRedirect: '/login'
+}));
 
 router.delete('/logout', (req, res) => {
   req.logout();
@@ -96,6 +94,7 @@ router.delete('/logout', (req, res) => {
 })
 
 router.get('/loggedin', (req, res) => {
+    console.log(logged)
   res.json(req.user);
 })
 
