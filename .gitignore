@@ -23,3 +23,6 @@ yarn-error.log*
 
 # Environment Variables should NEVER be published
 /server/.env
+/server/node_modules
+/server/.vscode
+/client/node_modules
