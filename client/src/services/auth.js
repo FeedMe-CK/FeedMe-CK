@@ -34,4 +34,4 @@ const logout = () => {
     });
 };
 
-export {  login, logout }
+export {  login, logout   }

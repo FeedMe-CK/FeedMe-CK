@@ -77,9 +77,11 @@ router.post('/login', (req, res) => {
 });
 
 router.get('/api/auth/google',
-  passport.authenticate('google', { scope: 
-      [ 'https://www.googleapis.com/auth/plus.login',
-      , 'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
+  passport.authenticate('google', { 
+    scope: [
+        'https://www.googleapis.com/auth/userinfo.profile',
+        'https://www.googleapis.com/auth/userinfo.email'
+    ] }
 ));
 
 router.get( '/api/auth/google/callback', 
